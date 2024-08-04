@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ADVTools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #4CAF50;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    select {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      margin: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #progressContainer {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      background-color: #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 30px;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      transition: width 0.3s ease;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    li {
+      background-color: #fff;
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ADVTools</h1>
+  <input type="file" id="fileInput" multiple>
+  <select id="conversionSelect">
+    <option value="" disabled selected>Selecione uma conversão</option>
+    <option value="opusToOgg">Converter OPUS para OGG</option>
+    <option value="mp4ToWebm">Converter MP4 para WEBM</option>
+    <option value="imageToPdf">Converter Imagem para PDF</option>
+  </select>
+  <button id="convertButton">Converter</button>
+  <div id="progressContainer">
+    <div id="progressBar">0%</div>
+  </div>
+  <ul id="result"></ul>
+  <script src="renderer.js"></script>
+</body>
+</html>
