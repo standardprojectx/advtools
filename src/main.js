@@ -4,8 +4,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const { PDFDocument } = require('pdf-lib');
 
-// Defina o caminho para o binário do ffmpeg
-const ffmpegPath = "D:\\Work\\electron\\advtools\\ffmpeg.exe"; // Substitua pelo caminho correto no seu sistema
+
+const ffmpegPath = "D:\\Work\\electron\\ffmpeg.exe"; 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 function createWindow() {
