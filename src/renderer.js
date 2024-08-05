@@ -55,15 +55,110 @@ async function convertFiles(conversionType) {
 }
 
 function handlePdfFiles() {
+    const files = Array.from(document.getElementById('pdfInput').files);
+    if (files.length === 0) {
+        alert('Por favor, selecione pelo menos um arquivo PDF.');
+        return;
+    }
+
+    const pdfList = document.getElementById('pdfList');
+    pdfList.innerHTML = '';
+
+    files.forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.textContent = file.name;
+        listItem.draggable = true;
+        listItem.filePath = file.path;
+        listItem.addEventListener('dragstart', handleDragStart);
+        listItem.addEventListener('dragover', handleDragOver);
+        listItem.addEventListener('drop', handleDrop);
+        listItem.addEventListener('dragend', handleDragEnd);
+        pdfList.appendChild(listItem);
+    });
+}
+
+function handleDragStart(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', e.target.filePath);
+    e.target.classList.add('dragging');
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const draggingItem = document.querySelector('.dragging');
+    const overItem = e.target;
+    if (overItem.tagName !== 'LI') return;
+    const parent = overItem.parentNode;
+    const items = Array.from(parent.children);
+    const draggingIndex = items.indexOf(draggingItem);
+    const overIndex = items.indexOf(overItem);
+
+    if (draggingIndex < overIndex) {
+        parent.insertBefore(draggingItem, overItem.nextSibling);
+    } else {
+        parent.insertBefore(draggingItem, overItem);
+    }
+}
+
+function handleDrop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function handleDragEnd(e) {
+    e.target.classList.remove('dragging');
+}
+
+function processPdfOrder() {
+    const pdfList = Array.from(document.getElementById('pdfList').children);
+    const orderedFiles = pdfList.map(item => item.filePath);
+
+    window.electron.processOrderedPdfs(orderedFiles).then((outputPath) => {
+        const resultList = document.getElementById('result');
+        resultList.innerHTML = `<li>Ordered PDF: ${outputPath}</li>`;
+    }).catch((error) => {
+        console.error('Erro ao processar ordem dos PDFs:', error);
+    });
+}
+
+async function mergePdfs() {
     const files = Array.from(document.getElementById('pdfInput').files).map(file => file.path);
     if (files.length === 0) {
         alert('Por favor, selecione pelo menos um arquivo PDF.');
         return;
     }
-    // Adicione a lógica específica para lidar com arquivos PDF
-    console.log(files);
+
+    try {
+        const result = await window.electron.mergePdfs(files);
+        const resultList = document.getElementById('result');
+        resultList.innerHTML = '';
+        resultList.innerHTML = `<li>Juntado: ${result}</li>`;
+    } catch (error) {
+        console.error('Erro ao juntar PDFs:', error);
+    }
+}
+
+async function splitPdf() {
+    const files = Array.from(document.getElementById('pdfInput').files).map(file => file.path);
+    if (files.length === 0) {
+        alert('Por favor, selecione pelo menos um arquivo PDF.');
+        return;
+    }
+
+    try {
+        const results = await window.electron.splitPdf(files[0]); // Suporte apenas para um arquivo por vez
+        const resultList = document.getElementById('result');
+        resultList.innerHTML = '';
+        results.forEach((file, index) => {
+            resultList.innerHTML += `<li>Separado: ${file}</li>`;
+        });
+    } catch (error) {
+        console.error('Erro ao separar PDF:', error);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pdfInput').addEventListener('change', handlePdfFiles);
     showSection('imageSection');
 });

@@ -4,7 +4,6 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const { PDFDocument } = require('pdf-lib');
 
-
 const ffmpegPath = "D:\\Work\\electron\\ffmpeg.exe"; 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -108,3 +107,51 @@ async function convertImageToPdf(imagePath, outputPath, event, totalFiles, compl
     event.sender.send('conversion-progress', Math.floor(progressPercent));
     return outputPath;
 }
+
+ipcMain.handle('merge-pdfs', async (event, files) => {
+    const mergedPdf = await PDFDocument.create();
+    for (const file of files) {
+        const pdfBytes = fs.readFileSync(file);
+        const pdf = await PDFDocument.load(pdfBytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => mergedPdf.addPage(page));
+    }
+    const mergedPdfBytes = await mergedPdf.save();
+    const outputPath = path.join(path.dirname(files[0]), 'merged.pdf');
+    fs.writeFileSync(outputPath, mergedPdfBytes);
+    return outputPath;
+});
+
+ipcMain.handle('split-pdf', async (event, file) => {
+    const pdfBytes = fs.readFileSync(file);
+    const pdf = await PDFDocument.load(pdfBytes);
+    const pdfPages = pdf.getPages();
+    const outputFiles = [];
+    for (let i = 0; i < pdfPages.length; i++) {
+        const singlePagePdf = await PDFDocument.create();
+        const [copiedPage] = await singlePagePdf.copyPages(pdf, [i]);
+        singlePagePdf.addPage(copiedPage);
+        const singlePageBytes = await singlePagePdf.save();
+        const outputPath = path.join(path.dirname(file), `page_${i + 1}.pdf`);
+        fs.writeFileSync(outputPath, singlePageBytes);
+        outputFiles.push(outputPath);
+    }
+    return outputFiles;
+});
+
+ipcMain.handle('process-ordered-pdfs', async (event, orderedFiles) => {
+    if (orderedFiles.length === 0) {
+        throw new Error('Nenhum arquivo foi fornecido para processar.');
+    }
+    const orderedPdf = await PDFDocument.create();
+    for (const file of orderedFiles) {
+        const pdfBytes = fs.readFileSync(file);
+        const pdf = await PDFDocument.load(pdfBytes);
+        const copiedPages = await orderedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => orderedPdf.addPage(page));
+    }
+    const orderedPdfBytes = await orderedPdf.save();
+    const outputPath = path.join(path.dirname(orderedFiles[0]), 'ordered.pdf');
+    fs.writeFileSync(outputPath, orderedPdfBytes);
+    return outputPath;
+});
