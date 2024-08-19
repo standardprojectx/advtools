@@ -148,34 +148,37 @@
     <button onclick="showSection('pdfSection')">PDFs</button>
   </div>
 
-  <div id="imageSection" class="section active">
-    <h2>Imagens</h2>
-    <input type="file" id="imageInput" multiple accept="image/*">
-    <button class="convert" onclick="convertFiles('imageToPdf')">Converter Imagens para PDF</button>
-  </div>
+ <div id="imageSection" class="section active">
+  <h2>Imagens</h2>
+  <input type="file" id="imageInput" multiple accept="image/*">
+  <button class="convert" onclick="convertFiles('imageToPdf')">Converter Imagens para PDF</button>
+  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
+</div>
 
-  <div id="audioVideoSection" class="section">
-    <h2>Áudio/Vídeo</h2>
-    <input type="file" id="audioVideoInput" multiple accept="audio/*,video/*">
-    <select id="audioVideoConversionSelect">
-      <option value="" disabled selected>Selecione uma conversão</option>
-      <option value="opusToOgg">Converter OPUS para OGG</option>
-      <option value="mp4ToWebm">Converter MP4 para WEBM</option>
-    </select>
-    <button class="convert" onclick="convertFiles('audioVideo')">Converter Áudio/Vídeo</button>
-  </div>
+<div id="audioVideoSection" class="section">
+  <h2>Áudio/Vídeo</h2>
+  <input type="file" id="audioVideoInput" multiple accept="audio/*,video/*">
+  <select id="audioVideoConversionSelect">
+    <option value="" disabled selected>Selecione uma conversão</option>
+    <option value="opusToOgg">Converter OPUS para OGG</option>
+    <option value="mp4ToWebm">Converter MP4 para WEBM</option>
+  </select>
+  <button class="convert" onclick="convertFiles('audioVideo')">Converter Áudio/Vídeo</button>
+  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
+</div>
 
-  <div id="pdfSection" class="section">
-    <h2>PDFs</h2>
-    <input type="file" id="pdfInput" multiple accept="application/pdf">
-    <button class="convert" onclick="mergePdfs()">Juntar PDFs</button>
-    <button class="convert" onclick="splitPdf()">Separar PDF</button>
-    <div id="dragDropArea">
-      <h3>Arraste para ordenar</h3>
-      <ul id="pdfList"></ul>
-    </div>
-    <button class="convert" onclick="processPdfOrder()">Processar Ordem</button>
+<div id="pdfSection" class="section">
+  <h2>PDFs</h2>
+  <input type="file" id="pdfInput" multiple accept="application/pdf">
+  <button class="convert" onclick="mergePdfs()">Juntar PDFs</button>
+  <button class="convert" onclick="splitPdf()">Separar PDF</button>
+  <div id="dragDropArea">
+    <h3>Arraste para ordenar</h3>
+    <ul id="pdfList"></ul>
   </div>
+  <button class="convert" onclick="processPdfOrder()">Processar Ordem</button>
+  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
+</div>
 
   <div id="progressContainer">
     <div id="progressBar">0%</div>

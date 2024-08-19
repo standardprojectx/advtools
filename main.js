@@ -3,8 +3,9 @@ const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const { PDFDocument } = require('pdf-lib');
+const zlib = require('zlib'); 
 
-const ffmpegPath = "D:\\Work\\electron\\ffmpeg.exe"; 
+const ffmpegPath = "C:\\ffmpeg\\ffmpeg.exe"; 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 function createWindow() {
@@ -13,7 +14,7 @@ function createWindow() {
         height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: false,
+            nodeIntegration: true,
             contextIsolation: true,
         },
     });

@@ -6,6 +6,12 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add('active');
 }
 
+function clearResults() {
+    const resultList = document.getElementById('result');
+    resultList.innerHTML = '';
+}
+
+
 async function convertFiles(conversionType) {
     let files = [];
     let fileInputId = '';
@@ -48,6 +54,7 @@ async function convertFiles(conversionType) {
         });
         progressContainer.style.display = 'none';
         document.getElementById(fileInputId).value = ''; // Limpa o campo de seleção de arquivo
+        document.getElementById('pdfList').innerHTML = ''; // Limpa a área de ordenação
     } catch (error) {
         console.error('Erro ao converter arquivos:', error);
         progressContainer.style.display = 'none';
@@ -117,7 +124,7 @@ function processPdfOrder() {
     window.electron.processOrderedPdfs(orderedFiles).then((outputPath) => {
         const resultList = document.getElementById('result');
         resultList.innerHTML = `<li>Ordered PDF: ${outputPath}</li>`;
-    }).catch((error) => {
+            }).catch((error) => {
         console.error('Erro ao processar ordem dos PDFs:', error);
     });
 }
