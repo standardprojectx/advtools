@@ -1,6 +1,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #FFF8F3; /* Cor de fundo geral */
+    background-color: #FFF8F3; /* Cor de fundo geral (claro) */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -9,36 +9,61 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0 20px;
-  }
-  
-  h1 {
-    color: #405D72; /* Cor para o título */
+}
+
+body.dark-mode {
+    background-color: #352F44; /* Cor de fundo geral (escuro) */
+    color: #FAF0E6;
+}
+
+h1 {
+    color: #405D72; /* Cor para o título (claro) */
     font-weight: 600;
     font-size: 2.5rem;
     margin-bottom: 20px;
     text-align: center;
-    position: fixed;
+    align-items: center;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000; /* Garante que o título fique acima dos outros elementos */
-  }
-  
-  .menu {
+}
+
+body.dark-mode h1 {
+    color: #B9B4C7; /* Cor para o título (escuro) */
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #405D72; /* Cor do ícone (claro) */
+}
+
+body.dark-mode .theme-toggle button {
+    color: #B9B4C7; /* Cor do ícone (escuro) */
+}
+
+.menu {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin: 20px 0;
-    position: fixed;
+    position: center;
     top: 80px;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000; /* Garante que o menu fique acima dos outros elementos */
-  }
-  
-  .menu button {
-    background-color: #405D72; /* Cor dos botões */
-    color: white;
+    z-index: 1000;
+}
+
+.menu button {
+    background-color: #405D72; /* Cor dos botões (claro) */
+    color: #e9e0e0;
     border: none;
     padding: 12px 25px;
     margin: 10px 0;
@@ -48,42 +73,59 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .menu button:hover,
-  .menu button.active { /* Adiciona destaque ao botão ativo */
-    background-color: #758694; /* Cor de hover e ativo */
+}
+
+body.dark-mode .menu button {
+    background-color: #5C5470; /* Cor dos botões (escuro) */
+}
+
+.menu button:hover,
+.menu button.active {
+    background-color: #758694; /* Cor de hover e ativo (claro) */
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Aumenta a sombra no estado ativo */
-  }
-  
-  .section {
+    box-shadow: 0 6px 8px rgba(42, 192, 82, 0.1);
+}
+
+body.dark-mode .menu button:hover,
+body.dark-mode .menu button.active {
+    background-color: #868095; /* Cor de hover e ativo (escuro) */
+}
+
+.section {
     display: none;
     width: 100%;
     max-width: 600px;
     padding: 25px;
-    background-color: #F7E7DC; /* Fundo das seções */
+    background-color: #F7E7DC; /* Fundo das seções (claro) */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-top: 200px; /* Espaço suficiente para o título e o menu fixos */
+    margin-top: 50px;
     margin-bottom: 20px;
-  }
-  
-  .section.active {
+}
+
+body.dark-mode .section {
+    background-color: #5C5470; /* Fundo das seções (escuro) */
+}
+
+.section.active {
     display: block;
-  }
-  
-  .section h2 {
+}
+
+.section h2 {
     margin-top: 0;
-    color: #405D72; /* Destaque para os subtítulos */
+    color: #405D72; /* Destaque para os subtítulos (claro) */
     font-weight: 600;
     font-size: 1.5rem;
     margin-bottom: 15px;
-  }
-  
-  input[type="file"],
-  select {
-    width: 75%; 
+}
+
+body.dark-mode .section h2 {
+    color: #fafafa; /* Destaque para os subtítulos (escuro) */
+}
+
+input[type="file"],
+select {
+    width: 75%;
     padding: 12px;
     border: 1px solid #758694;
     border-radius: 8px;
@@ -91,10 +133,16 @@ body {
     font-size: 1rem;
     background-color: #FFF8F3;
     cursor: pointer;
-  }
-  
-  button.convert {
-    background-color: #405D72; /* Cor para os botões de ação */
+}
+
+body.dark-mode input[type="file"],
+body.dark-mode select {
+    background-color: #B9B4C7;
+    color: #352F44;
+}
+
+button.convert {
+    background-color: #405D72; 
     color: white;
     border: none;
     padding: 12px 25px;
@@ -106,59 +154,86 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  button.convert:hover {
-    background-color: #758694; /* Cor de hover */
+}
+
+body.dark-mode button.convert {
+    background-color: #4f4763; 
+}
+
+button.convert:hover {
+    background-color: #758694; /* Cor de hover (claro) */
     transform: translateY(-2px);
-  }
-  
-  #progressContainer {
+}
+
+body.dark-mode button.convert:hover {
+    background-color: #8d83a9; /* Cor de hover (escuro) */
+}
+
+#progressContainer {
     display: none;
     width: 100%;
     background-color: #ddd;
     border-radius: 8px;
     overflow: hidden;
     margin-top: 20px;
-  }
-  
-  #progressBar {
+}
+
+body.dark-mode #progressContainer {
+    background-color: #5C5470;
+}
+
+#progressBar {
     width: 0%;
     height: 30px;
-    background-color: #405D72; /* Cor de progresso */
+    background-color: #405D72; /* Cor de progresso (claro) */
     text-align: center;
     line-height: 30px;
     color: white;
     transition: width 0.3s ease;
-  }
-  
-  ul {
+}
+
+body.dark-mode #progressBar {
+    background-color: #B9B4C7; /* Cor de progresso (escuro) */
+}
+
+ul {
     list-style-type: none;
     padding: 0;
     margin-top: 20px;
     width: 100%;
     max-width: 600px;
-  }
-  
-  li {
-    background-color: #FFF8F3; /* Fundo claro para itens */
+}
+
+li {
+    background-color: #FFF8F3; /* Fundo claro para itens (claro) */
     margin: 5px 0;
     padding: 10px;
     border: 1px solid #758694; /* Bordas neutras */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    overflow: hidden; /* Esconde o texto que não cabe */
-    text-overflow: ellipsis; /* Adiciona reticências no fim do texto */
-    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
-  }
-  
-  #dragDropArea {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.dark-mode li {
+    background-color: #B9B4C7; /* Fundo claro para itens (escuro) */
+    color: #352F44;
+}
+
+#dragDropArea {
     margin-top: 20px;
     padding: 15px;
     background-color: #f9f9f9;
-    border: 2px dashed #758694; /* Bordas neutras */
+    border: 2px dashed #758694;
     border-radius: 8px;
     text-align: center;
     font-size: 1rem;
     color: #405D72;
-  }
+}
+
+body.dark-mode #dragDropArea {
+    background-color: #352F44;
+    color: #FAF0E6;
+    border-color: #B9B4C7;
+}

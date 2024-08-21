@@ -139,6 +139,21 @@ function handleDragOver(e) {
     }
 }
 
+
+function toggleTheme() {
+    const body = document.body;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+    body.classList.toggle('dark-mode');
+
+    if (body.classList.contains('dark-mode')) {
+        themeToggleBtn.textContent = '☀️';
+    } else {
+        themeToggleBtn.textContent = '🌙';
+    }
+}
+
+
 function handleDrop(e) {
     e.stopPropagation();
     e.preventDefault();
