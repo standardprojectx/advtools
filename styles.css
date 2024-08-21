@@ -1,0 +1,164 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FFF8F3; /* Cor de fundo geral */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 20px;
+  }
+  
+  h1 {
+    color: #405D72; /* Cor para o título */
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Garante que o título fique acima dos outros elementos */
+  }
+  
+  .menu {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Garante que o menu fique acima dos outros elementos */
+  }
+  
+  .menu button {
+    background-color: #405D72; /* Cor dos botões */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu button:hover,
+  .menu button.active { /* Adiciona destaque ao botão ativo */
+    background-color: #758694; /* Cor de hover e ativo */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Aumenta a sombra no estado ativo */
+  }
+  
+  .section {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    padding: 25px;
+    background-color: #F7E7DC; /* Fundo das seções */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 200px; /* Espaço suficiente para o título e o menu fixos */
+    margin-bottom: 20px;
+  }
+  
+  .section.active {
+    display: block;
+  }
+  
+  .section h2 {
+    margin-top: 0;
+    color: #405D72; /* Destaque para os subtítulos */
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  input[type="file"],
+  select {
+    width: 75%; 
+    padding: 12px;
+    border: 1px solid #758694;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    background-color: #FFF8F3;
+    cursor: pointer;
+  }
+  
+  button.convert {
+    background-color: #405D72; /* Cor para os botões de ação */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin-top: 50px;
+    margin-right: 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  button.convert:hover {
+    background-color: #758694; /* Cor de hover */
+    transform: translateY(-2px);
+  }
+  
+  #progressContainer {
+    display: none;
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  #progressBar {
+    width: 0%;
+    height: 30px;
+    background-color: #405D72; /* Cor de progresso */
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    transition: width 0.3s ease;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  li {
+    background-color: #FFF8F3; /* Fundo claro para itens */
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #758694; /* Bordas neutras */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden; /* Esconde o texto que não cabe */
+    text-overflow: ellipsis; /* Adiciona reticências no fim do texto */
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+  }
+  
+  #dragDropArea {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 2px dashed #758694; /* Bordas neutras */
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    color: #405D72;
+  }

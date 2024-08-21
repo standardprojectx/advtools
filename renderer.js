@@ -14,10 +14,18 @@ function showSection(sectionId) {
   }
   
 
-function clearResults() {
+  function clearResults() {
     const resultList = document.getElementById('result');
     resultList.innerHTML = '';
+
+    // Limpar a lista de PDFs arrastados
+    const pdfList = document.getElementById('pdfList');
+    pdfList.innerHTML = '';
+
+    // Opcionalmente, você pode limpar também o campo de entrada de arquivos PDF
+    document.getElementById('pdfInput').value = '';
 }
+
 
 function handlePdfAction() {
     const action = document.getElementById('pdfActionSelect').value;
