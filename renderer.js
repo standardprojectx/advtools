@@ -19,10 +19,14 @@ async function convertFiles(conversionType) {
     if (conversionType === 'imageToPdf') {
         files = Array.from(document.getElementById('imageInput').files).map(file => file.path);
         fileInputId = 'imageInput';
-    } else if (conversionType === 'audioVideo') {
-        files = Array.from(document.getElementById('audioVideoInput').files).map(file => file.path);
-        conversionType = document.getElementById('audioVideoConversionSelect').value;
-        fileInputId = 'audioVideoInput';
+    } else if (conversionType === 'audio') {
+        files = Array.from(document.getElementById('audioInput').files).map(file => file.path);
+        conversionType = document.getElementById('audioConversionSelect').value;
+        fileInputId = 'audioInput';
+    } else if (conversionType === 'video') {
+        files = Array.from(document.getElementById('videoInput').files).map(file => file.path);
+        conversionType = document.getElementById('videoConversionSelect').value;
+        fileInputId = 'videoInput';
     } else {
         return;
     }

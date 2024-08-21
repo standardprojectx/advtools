@@ -50,6 +50,9 @@ ipcMain.handle('convert-files', async (event, files, conversionType) => {
         } else if (conversionType === 'mp4ToWebm') {
             output = file.replace('.mp4', '.webm');
             format = 'webm';
+        } else if (conversionType === 'webmToOgg') {
+            output = file.replace('.webm', '.ogg');
+            format = 'ogg';
         } else if (conversionType === 'imageToPdf') {
             output = file.replace(/\.[^.]+$/, '.pdf');
             return convertImageToPdf(file, output, event, totalFiles, completedFiles++);
@@ -80,7 +83,6 @@ async function convertImageToPdf(imagePath, outputPath, event, totalFiles, compl
     const imageBytes = fs.readFileSync(imagePath);
     let image;
     
-    // Tentar embutir a imagem como JPEG, se falhar, tentar como PNG
     try {
         image = await pdfDoc.embedJpg(imageBytes);
     } catch (error) {
@@ -113,7 +115,7 @@ ipcMain.handle('merge-pdfs', async (event, files) => {
     const mergedPdf = await PDFDocument.create();
     for (const file of files) {
         const pdfBytes = fs.readFileSync(file);
-        const pdf = await PDFDocument.load(pdfBytes);
+        const pdf = await PDFDocument.load(pdfBytes, { ignoreEncryption: true }); // Ignora a criptografia
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach(page => mergedPdf.addPage(page));
     }
@@ -125,7 +127,7 @@ ipcMain.handle('merge-pdfs', async (event, files) => {
 
 ipcMain.handle('split-pdf', async (event, file) => {
     const pdfBytes = fs.readFileSync(file);
-    const pdf = await PDFDocument.load(pdfBytes);
+    const pdf = await PDFDocument.load(pdfBytes, { ignoreEncryption: true }); // Ignora a criptografia
     const pdfPages = pdf.getPages();
     const outputFiles = [];
     for (let i = 0; i < pdfPages.length; i++) {
@@ -147,7 +149,7 @@ ipcMain.handle('process-ordered-pdfs', async (event, orderedFiles) => {
     const orderedPdf = await PDFDocument.create();
     for (const file of orderedFiles) {
         const pdfBytes = fs.readFileSync(file);
-        const pdf = await PDFDocument.load(pdfBytes);
+        const pdf = await PDFDocument.load(pdfBytes, { ignoreEncryption: true }); // Ignora a criptografia
         const copiedPages = await orderedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach(page => orderedPdf.addPage(page));
     }

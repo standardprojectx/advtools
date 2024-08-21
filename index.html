@@ -1,142 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,600' rel='stylesheet'>
   <meta charset="UTF-8">
   <title>ADVTools</title>
   <style>
-    body {
-      font-family: 'Montserrat';
-      background-color: #E2E2B6;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      padding: 20px;
-    }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #FFF8F3; /* Cor de fundo geral */
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0 20px;
+}
 
-    h1 {
-      color: #6EACDA;
-    }
+h1 {
+  color: #405D72; /* Cor para o título */
+  font-weight: 600;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-    .menu {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      max-width: 600px;
-      margin: 20px 0;
-    }
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
 
-    .menu button {
-      background-color: #6EACDA;
-      color: white;
-      border: none;
-      padding: 15px 20px;
-      margin: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-family: 'Montserrat';
-    }
+.menu button {
+  background-color: #405D72; /* Cor dos botões */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  margin: 10px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-    .menu button:hover {
-      background-color: #03346E;
-    }
+.menu button:hover {
+  background-color: #758694; /* Cor de hover */
+  transform: translateY(-2px);
+}
 
-    .section {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+.section {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  padding: 25px;
+  background-color: #F7E7DC; /* Fundo das seções */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
 
-    .section.active {
-      display: block;
-    }
+.section.active {
+  display: block;
+}
 
-    .section h2 {
-      margin-top: 0;
-    }
+.section h2 {
+  margin-top: 0;
+  color: #405D72; /* Destaque para os subtítulos */
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
 
-    input[type="file"] {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+input[type="file"],
+select {
+  width: 75%; 
+  padding: 12px;
+  border: 1px solid #758694;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  background-color: #FFF8F3;
+  cursor: pointer;
+}
 
-    select {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
 
-    button.convert {
-      background-color: #6EACDA;
-      color: white;
-      border: none;
-      padding: 15px 20px;
-      margin: 10px 0;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-family: 'Montserrat';
-    }
+button.convert {
+  background-color: #405D72; /* Cor para os botões de ação */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  margin: 10px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-    button.convert:hover {
-      background-color: #03346E;
-    }
+button.convert:hover {
+  background-color: #758694; /* Cor de hover */
+  transform: translateY(-2px);
+}
 
-    #progressContainer {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      background-color: #ddd;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
+#progressContainer {
+  display: none;
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
 
-    #progressBar {
-      width: 0%;
-      height: 30px;
-      background-color: #6EACDA;
-      text-align: center;
-      line-height: 30px;
-      color: white;
-      transition: width 0.3s ease;
-    }
+#progressBar {
+  width: 0%;
+  height: 30px;
+  background-color: #405D72; /* Cor de progresso */
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  transition: width 0.3s ease;
+}
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 20px;
-      width: 100%;
-      max-width: 600px;
-    }
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
 
-    li {
-      background-color: #fff;
-      margin: 5px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+li {
+  background-color: #FFF8F3; /* Fundo claro para itens */
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #758694; /* Bordas neutras */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-    #dragDropArea {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border: 1px dashed #ccc;
-      border-radius: 4px;
-    }
+#dragDropArea {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 2px dashed #758694; /* Bordas neutras */
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: #405D72;
+}
   </style>
 </head>
 <body>
@@ -144,41 +160,53 @@
 
   <div class="menu">
     <button onclick="showSection('imageSection')">Imagens</button>
-    <button onclick="showSection('audioVideoSection')">Áudio/Vídeo</button>
+    <button onclick="showSection('audioSection')">Áudio</button>
+    <button onclick="showSection('videoSection')">Vídeo</button>
     <button onclick="showSection('pdfSection')">PDFs</button>
   </div>
 
- <div id="imageSection" class="section active">
-  <h2>Imagens</h2>
-  <input type="file" id="imageInput" multiple accept="image/*">
-  <button class="convert" onclick="convertFiles('imageToPdf')">Converter Imagens para PDF</button>
-  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
-</div>
-
-<div id="audioVideoSection" class="section">
-  <h2>Áudio/Vídeo</h2>
-  <input type="file" id="audioVideoInput" multiple accept="audio/*,video/*">
-  <select id="audioVideoConversionSelect">
-    <option value="" disabled selected>Selecione uma conversão</option>
-    <option value="opusToOgg">Converter OPUS para OGG</option>
-    <option value="mp4ToWebm">Converter MP4 para WEBM</option>
-  </select>
-  <button class="convert" onclick="convertFiles('audioVideo')">Converter Áudio/Vídeo</button>
-  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
-</div>
-
-<div id="pdfSection" class="section">
-  <h2>PDFs</h2>
-  <input type="file" id="pdfInput" multiple accept="application/pdf">
-  <button class="convert" onclick="mergePdfs()">Juntar PDFs</button>
-  <button class="convert" onclick="splitPdf()">Separar PDF</button>
-  <div id="dragDropArea">
-    <h3>Arraste para ordenar</h3>
-    <ul id="pdfList"></ul>
+  <div id="imageSection" class="section active">
+    <h2>Imagens</h2>
+    <input type="file" id="imageInput" multiple accept="image/*">
+    <button class="convert" onclick="convertFiles('imageToPdf')">Converter Imagens para PDF</button>
+    <button class="convert" onclick="clearResults()">Limpar</button> 
   </div>
-  <button class="convert" onclick="processPdfOrder()">Processar Ordem</button>
-  <button class="convert" onclick="clearResults()">Limpar</button> <!-- Botão de limpar -->
-</div>
+
+  <div id="audioSection" class="section">
+    <h2>Áudio</h2>
+    <input type="file" id="audioInput" multiple accept="audio/*">
+    <select id="audioConversionSelect">
+      <option value="" disabled selected>Selecione uma conversão</option>
+      <option value="opusToOgg">Converter OPUS para OGG</option>
+      <option value="webmToOgg">Converter WEBM para OGG</option>
+    </select>
+    <button class="convert" onclick="convertFiles('audio')">Converter Áudio</button>
+    <button class="convert" onclick="clearResults()">Limpar</button>
+  </div>
+
+  <div id="videoSection" class="section">
+    <h2>Vídeo</h2>
+    <input type="file" id="videoInput" multiple accept="video/*">
+    <select id="videoConversionSelect">
+      <option value="" disabled selected>Selecione uma conversão</option>
+      <option value="mp4ToWebm">Converter MP4 para WEBM</option>
+    </select>
+    <button class="convert" onclick="convertFiles('video')">Converter Vídeo</button>
+    <button class="convert" onclick="clearResults()">Limpar</button>
+  </div>
+
+  <div id="pdfSection" class="section">
+    <h2>PDFs</h2>
+    <input type="file" id="pdfInput" multiple accept="application/pdf">
+    <button class="convert" onclick="mergePdfs()">Juntar PDFs</button>
+    <button class="convert" onclick="splitPdf()">Separar PDF</button>
+    <div id="dragDropArea">
+      <h3>Arraste para ordenar</h3>
+      <ul id="pdfList"></ul>
+    </div>
+    <button class="convert" onclick="processPdfOrder()">Processar Ordem</button>
+    <button class="convert" onclick="clearResults()">Limpar</button>
+  </div>
 
   <div id="progressContainer">
     <div id="progressBar">0%</div>
