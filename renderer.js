@@ -1,16 +1,35 @@
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
-        section.classList.remove('active');
+      section.classList.remove('active');
     });
     document.getElementById(sectionId).classList.add('active');
-}
+  
+  
+    const buttons = document.querySelectorAll('.menu button');
+    buttons.forEach(button => {
+      button.classList.remove('active');
+    });
+    document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+  }
+  
 
 function clearResults() {
     const resultList = document.getElementById('result');
     resultList.innerHTML = '';
 }
 
+function handlePdfAction() {
+    const action = document.getElementById('pdfActionSelect').value;
+    if (action === 'mergePdfs') {
+      mergePdfs();
+    } else if (action === 'splitPdf') {
+      splitPdf();
+    } else {
+      alert('Por favor, selecione uma ação válida.');
+    }
+  }
+  
 
 async function convertFiles(conversionType) {
     let files = [];

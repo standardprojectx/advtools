@@ -18,6 +18,35 @@ body {
   padding: 0 20px;
 }
 
+select {
+  width: 75%;
+  padding: 12px;
+  border: 1px solid #758694;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  background-color: #FFF8F3;
+  color: #405D72; /* Cor do texto */
+  cursor: pointer;
+  appearance: none; /* Remove o estilo padrão do select */
+  -webkit-appearance: none; /* Remove o estilo padrão do select no Safari */
+  -moz-appearance: none; /* Remove o estilo padrão do select no Firefox */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23758694"><path d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select:hover {
+  border-color: #405D72; /* Muda a cor da borda ao passar o mouse */
+}
+
+select:focus {
+  outline: none;
+  border-color: #405D72; /* Muda a cor da borda ao focar */
+  box-shadow: 0 0 0 3px rgba(64, 93, 114, 0.3); /* Adiciona um efeito de foco */
+}
+
 h1 {
   color: #405D72; /* Cor para o título */
   font-weight: 600;
@@ -47,9 +76,11 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.menu button:hover {
-  background-color: #758694; /* Cor de hover */
+.menu button:hover,
+.menu button.active { /* Adiciona destaque ao botão ativo */
+  background-color: #758694; /* Cor de hover e ativo */
   transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Aumenta a sombra no estado ativo */
 }
 
 .section {
@@ -93,7 +124,8 @@ button.convert {
   color: white;
   border: none;
   padding: 12px 25px;
-  margin: 10px 0;
+  margin-top: 50px;
+  margin-right: 20px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -141,7 +173,11 @@ li {
   border: 1px solid #758694; /* Bordas neutras */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Esconde o texto que não cabe */
+  text-overflow: ellipsis; /* Adiciona reticências no fim do texto */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
 }
+
 
 #dragDropArea {
   margin-top: 20px;
@@ -198,15 +234,20 @@ li {
   <div id="pdfSection" class="section">
     <h2>PDFs</h2>
     <input type="file" id="pdfInput" multiple accept="application/pdf">
-    <button class="convert" onclick="mergePdfs()">Juntar PDFs</button>
-    <button class="convert" onclick="splitPdf()">Separar PDF</button>
+    <select id="pdfActionSelect">
+      <option value="" disabled selected>Selecione uma ação</option>
+      <option value="mergePdfs">Juntar PDFs</option>
+      <option value="splitPdf">Separar PDF</option>
+    </select>
+
     <div id="dragDropArea">
       <h3>Arraste para ordenar</h3>
       <ul id="pdfList"></ul>
     </div>
-    <button class="convert" onclick="processPdfOrder()">Processar Ordem</button>
+    <button class="convert" onclick="handlePdfAction()">Converter</button>
     <button class="convert" onclick="clearResults()">Limpar</button>
   </div>
+  
 
   <div id="progressContainer">
     <div id="progressBar">0%</div>
