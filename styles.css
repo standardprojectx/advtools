@@ -31,19 +31,26 @@ body.dark-mode h1 {
     color: #B9B4C7; /* Cor para o título (escuro) */
 }
 
-.theme-toggle {
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #405D72;
+    transition: transform 0.5s ease, opacity 0.3s ease;
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 1000;
 }
 
-.theme-toggle button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #405D72; /* Cor do ícone (claro) */
+body.dark-mode .theme-toggle button {
+    color: #B9B4C7;
+}
+
+.theme-toggle button.animate {
+    transform: rotate(180deg);
+    opacity: 0;
 }
 
 body.dark-mode .theme-toggle button {

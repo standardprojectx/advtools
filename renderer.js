@@ -144,14 +144,20 @@ function toggleTheme() {
     const body = document.body;
     const themeToggleBtn = document.getElementById('themeToggleBtn');
 
-    body.classList.toggle('dark-mode');
+    themeToggleBtn.classList.add('animate');
+    setTimeout(() => {
+        body.classList.toggle('dark-mode');
 
-    if (body.classList.contains('dark-mode')) {
-        themeToggleBtn.textContent = '☀️';
-    } else {
-        themeToggleBtn.textContent = '🌙';
-    }
+        if (body.classList.contains('dark-mode')) {
+            themeToggleBtn.textContent = '☀️';
+        } else {
+            themeToggleBtn.textContent = '🌙';
+        }
+
+        themeToggleBtn.classList.remove('animate');
+    }, 300);
 }
+
 
 
 function handleDrop(e) {
