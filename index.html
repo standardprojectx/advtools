@@ -42,30 +42,31 @@
     <h2>Vídeo</h2>
     <input type="file" id="videoInput" multiple accept="video/*">
     <select id="videoConversionSelect">
-      <option value="" disabled selected>Selecione uma conversão</option>
-      <option value="mp4ToWebm">Converter MP4 para WEBM</option>
+      <option value="" disabled >Selecione uma conversão</option>
+      <option value="mp4ToWebm" selected>Converter MP4 para WEBM</option>
     </select>
     <button class="convert" onclick="convertFiles('video')">Converter Vídeo</button>
     <button class="convert" onclick="clearResults()">Limpar</button>
   </div>
 
-  <div id="pdfSection" class="section">
+<div id="pdfSection" class="section">
     <h2>PDFs</h2>
-    <input type="file" id="pdfInput" multiple accept="application/pdf">
-    <select id="pdfActionSelect">
-      <option value="" disabled selected>Selecione uma ação</option>
-      <option value="mergePdfs">Juntar PDFs</option>
+    <input type="file" id="pdfInput" accept="application/pdf">
+    <select id="pdfActionSelect" onchange="handlePdfAction()">
+      <option value="" disabled>Selecione uma ação</option>
+      <option value="mergePdfs" selected>Juntar PDFs</option> 
       <option value="splitPdf">Separar PDF</option>
-    </select>
-
-    <div id="dragDropArea">
-      <h3>Arraste para ordenar</h3>
-      <ul id="pdfList"></ul>
-    </div>
-    <button class="convert" onclick="handlePdfAction()">Converter</button>
-    <button class="convert" onclick="clearResults()">Limpar</button>
-  </div>
+  </select>
   
+    <div id="dragDropArea">
+        <h3>Arraste para ordenar</h3>
+        <ul id="pdfList"></ul>
+    </div>
+
+    <button class="convert" onclick="convertPdf()">Converter</button> 
+    <button class="convert" onclick="clearResults()">Limpar</button>
+</div>
+
 
   <div id="progressContainer">
     <div id="progressBar">0%</div>

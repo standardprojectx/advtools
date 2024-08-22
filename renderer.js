@@ -13,8 +13,33 @@ function showSection(sectionId) {
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
   }
   
+  function convertPdf() {
+    const action = document.getElementById('pdfActionSelect').value;
+    if (action === 'mergePdfs') {
+        mergePdfs(); // Chama a função para juntar PDFs
+    } else if (action === 'splitPdf') {
+        splitPdf(); // Chama a função para separar PDF
+    } else {
+        alert('Por favor, selecione uma ação válida.');
+    }
+}
 
-  function clearResults() {
+function handlePdfAction() {
+    const action = document.getElementById('pdfActionSelect').value;
+    const pdfInput = document.getElementById('pdfInput');
+    const dragDropArea = document.getElementById('dragDropArea');
+    
+    if (action === 'mergePdfs') {
+        dragDropArea.style.display = 'block'; // Mostra a área de drag and drop
+        pdfInput.setAttribute('multiple', true); // Permite a seleção de múltiplos arquivos
+    } else if (action === 'splitPdf') {
+        dragDropArea.style.display = 'none'; // Esconde a área de drag and drop
+        pdfInput.removeAttribute('multiple'); // Permite apenas a seleção de um arquivo
+    }
+}
+
+
+function clearResults() {
     const resultList = document.getElementById('result');
     resultList.innerHTML = '';
 
@@ -22,22 +47,15 @@ function showSection(sectionId) {
     const pdfList = document.getElementById('pdfList');
     pdfList.innerHTML = '';
 
-    // Opcionalmente, você pode limpar também o campo de entrada de arquivos PDF
+    // Limpa o campo de entrada de arquivos PDF
     document.getElementById('pdfInput').value = '';
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pdfInput').addEventListener('change', handlePdfFiles);
+    showSection('imageSection');
+});
 
-function handlePdfAction() {
-    const action = document.getElementById('pdfActionSelect').value;
-    if (action === 'mergePdfs') {
-      mergePdfs();
-    } else if (action === 'splitPdf') {
-      splitPdf();
-    } else {
-      alert('Por favor, selecione uma ação válida.');
-    }
-  }
-  
 
 async function convertFiles(conversionType) {
     let files = [];
@@ -188,6 +206,11 @@ async function mergePdfs() {
         return;
     }
 
+    if (files.length === 1) {
+        alert('Selecione mais de um arquivo para juntar.');
+        return;
+    }
+
     try {
         const result = await window.electron.mergePdfs(files);
         const resultList = document.getElementById('result');
@@ -199,9 +222,15 @@ async function mergePdfs() {
 }
 
 async function splitPdf() {
-    const files = Array.from(document.getElementById('pdfInput').files).map(file => file.path);
+    const files = Array.from(document.getElementById('pdfInput').files);
+
     if (files.length === 0) {
         alert('Por favor, selecione pelo menos um arquivo PDF.');
+        return;
+    }
+
+    if (files.length > 1) {
+        alert('Você só pode separar um arquivo PDF de cada vez.');
         return;
     }
 
@@ -217,7 +246,9 @@ async function splitPdf() {
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pdfInput').addEventListener('change', handlePdfFiles);
     showSection('imageSection');
+    handlePdfAction(); 
 });
