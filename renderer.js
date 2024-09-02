@@ -1,19 +1,50 @@
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
-      section.classList.remove('active');
+        section.classList.remove('active');
     });
     document.getElementById(sectionId).classList.add('active');
-  
-  
+
     const buttons = document.querySelectorAll('.menu button');
     buttons.forEach(button => {
-      button.classList.remove('active');
+        button.classList.remove('active');
     });
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
-  }
-  
-  function convertPdf() {
+}
+
+function calculatePercentage() {
+    const percentage = parseFloat(document.getElementById('percentageInput').value);
+    const value = parseFloat(document.getElementById('valueInput').value);
+
+    if (isNaN(percentage) || isNaN(value)) {
+        alert('Por favor, insira valores válidos.');
+        return;
+    }
+
+    const result = (percentage / 100) * value;
+    document.getElementById('percentageResult').textContent = `Resultado: ${result}`;
+}
+
+function clearResults() {
+    const resultList = document.getElementById('result');
+    resultList.innerHTML = '';
+
+    // Limpar o resultado de porcentagem
+    document.getElementById('percentageResult').textContent = '';
+
+    // Limpar os campos de entrada de porcentagem
+    document.getElementById('percentageInput').value = '';
+    document.getElementById('valueInput').value = '';
+
+    // Limpar a lista de PDFs arrastados
+    const pdfList = document.getElementById('pdfList');
+    pdfList.innerHTML = '';
+
+    // Limpa o campo de entrada de arquivos PDF
+    document.getElementById('pdfInput').value = '';
+}
+
+function convertPdf() {
     const action = document.getElementById('pdfActionSelect').value;
     if (action === 'mergePdfs') {
         mergePdfs(); // Chama a função para juntar PDFs
@@ -28,7 +59,7 @@ function handlePdfAction() {
     const action = document.getElementById('pdfActionSelect').value;
     const pdfInput = document.getElementById('pdfInput');
     const dragDropArea = document.getElementById('dragDropArea');
-    
+
     if (action === 'mergePdfs') {
         dragDropArea.style.display = 'block'; // Mostra a área de drag and drop
         pdfInput.setAttribute('multiple', true); // Permite a seleção de múltiplos arquivos
@@ -38,24 +69,10 @@ function handlePdfAction() {
     }
 }
 
-
-function clearResults() {
-    const resultList = document.getElementById('result');
-    resultList.innerHTML = '';
-
-    // Limpar a lista de PDFs arrastados
-    const pdfList = document.getElementById('pdfList');
-    pdfList.innerHTML = '';
-
-    // Limpa o campo de entrada de arquivos PDF
-    document.getElementById('pdfInput').value = '';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pdfInput').addEventListener('change', handlePdfFiles);
     showSection('imageSection');
 });
-
 
 async function convertFiles(conversionType) {
     let files = [];
@@ -157,7 +174,6 @@ function handleDragOver(e) {
     }
 }
 
-
 function toggleTheme() {
     const body = document.body;
     const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -176,8 +192,6 @@ function toggleTheme() {
     }, 300);
 }
 
-
-
 function handleDrop(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -194,7 +208,7 @@ function processPdfOrder() {
     window.electron.processOrderedPdfs(orderedFiles).then((outputPath) => {
         const resultList = document.getElementById('result');
         resultList.innerHTML = `<li>Ordered PDF: ${outputPath}</li>`;
-            }).catch((error) => {
+    }).catch((error) => {
         console.error('Erro ao processar ordem dos PDFs:', error);
     });
 }
@@ -245,7 +259,6 @@ async function splitPdf() {
         console.error('Erro ao separar PDF:', error);
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pdfInput').addEventListener('change', handlePdfFiles);

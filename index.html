@@ -17,6 +17,7 @@
     <button onclick="showSection('audioSection')">Áudio</button>
     <button onclick="showSection('videoSection')">Vídeo</button>
     <button onclick="showSection('pdfSection')">PDFs</button>
+    <button onclick="showSection('percentageSection')">Porcentagem</button>
   </div>
 
   <div id="imageSection" class="section active">
@@ -42,22 +43,22 @@
     <h2>Vídeo</h2>
     <input type="file" id="videoInput" multiple accept="video/*">
     <select id="videoConversionSelect">
-      <option value="" disabled >Selecione uma conversão</option>
+      <option value="" disabled>Selecione uma conversão</option>
       <option value="mp4ToWebm" selected>Converter MP4 para WEBM</option>
     </select>
     <button class="convert" onclick="convertFiles('video')">Converter Vídeo</button>
     <button class="convert" onclick="clearResults()">Limpar</button>
   </div>
 
-<div id="pdfSection" class="section">
+  <div id="pdfSection" class="section">
     <h2>PDFs</h2>
     <input type="file" id="pdfInput" accept="application/pdf">
     <select id="pdfActionSelect" onchange="handlePdfAction()">
       <option value="" disabled>Selecione uma ação</option>
       <option value="mergePdfs" selected>Juntar PDFs</option> 
       <option value="splitPdf">Separar PDF</option>
-  </select>
-  
+    </select>
+
     <div id="dragDropArea">
         <h3>Arraste para ordenar</h3>
         <ul id="pdfList"></ul>
@@ -65,8 +66,16 @@
 
     <button class="convert" onclick="convertPdf()">Converter</button> 
     <button class="convert" onclick="clearResults()">Limpar</button>
-</div>
+  </div>
 
+  <div id="percentageSection" class="section">
+    <h2>Cálculo de Porcentagem</h2>
+    <input type="number" id="percentageInput" placeholder="Digite a porcentagem">
+    <input type="number" id="valueInput" placeholder="Digite o valor">
+    <button class="convert" onclick="calculatePercentage()">Calcular</button>
+    <div id="percentageResult"></div>
+    <button class="convert" onclick="clearResults()">Limpar</button>
+  </div>
 
   <div id="progressContainer">
     <div id="progressBar">0%</div>

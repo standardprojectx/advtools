@@ -244,3 +244,19 @@ body.dark-mode #dragDropArea {
     color: #FAF0E6;
     border-color: #B9B4C7;
 }
+
+/* Estilos para a nova seção de porcentagem */
+#percentageSection input[type="number"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #758694;
+    border-radius: 8px;
+    background-color: #FFF8F3;
+}
+
+body.dark-mode #percentageSection input[type="number"] {
+    background-color: #B9B4C7;
+    color: #352F44;
+}
