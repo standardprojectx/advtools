@@ -55,6 +55,7 @@ function convertPdf() {
     }
 }
 
+
 function handlePdfAction() {
     const action = document.getElementById('pdfActionSelect').value;
     const pdfInput = document.getElementById('pdfInput');
@@ -141,7 +142,7 @@ function handlePdfFiles() {
         const listItem = document.createElement('li');
         listItem.textContent = file.name;
         listItem.draggable = true;
-        listItem.filePath = file.path;
+        listItem.filePath = file.path; 
         listItem.addEventListener('dragstart', handleDragStart);
         listItem.addEventListener('dragover', handleDragOver);
         listItem.addEventListener('drop', handleDrop);
@@ -149,6 +150,7 @@ function handlePdfFiles() {
         pdfList.appendChild(listItem);
     });
 }
+
 
 function handleDragStart(e) {
     e.dataTransfer.effectAllowed = 'move';
@@ -214,16 +216,21 @@ function processPdfOrder() {
 }
 
 async function mergePdfs() {
-    const files = Array.from(document.getElementById('pdfInput').files).map(file => file.path);
-    if (files.length === 0) {
+    const pdfList = document.getElementById('pdfList');
+    const listItems = Array.from(pdfList.children);
+
+    if (listItems.length === 0) {
         alert('Por favor, selecione pelo menos um arquivo PDF.');
         return;
     }
 
-    if (files.length === 1) {
+    if (listItems.length === 1) {
         alert('Selecione mais de um arquivo para juntar.');
         return;
     }
+
+   
+    const files = listItems.map(item => item.filePath);
 
     try {
         const result = await window.electron.mergePdfs(files);
@@ -234,6 +241,27 @@ async function mergePdfs() {
         console.error('Erro ao juntar PDFs:', error);
     }
 }
+
+
+function sortPdfList() {
+    const pdfList = document.getElementById('pdfList');
+    const items = Array.from(pdfList.children);
+
+    items.sort((a, b) => {
+        const nameA = a.textContent.toLowerCase();
+        const nameB = b.textContent.toLowerCase();
+        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+   
+    pdfList.innerHTML = '';
+
+    // Reanexa os itens na ordem ordenada
+    items.forEach(item => {
+        pdfList.appendChild(item);
+    });
+}
+
 
 async function splitPdf() {
     const files = Array.from(document.getElementById('pdfInput').files);
